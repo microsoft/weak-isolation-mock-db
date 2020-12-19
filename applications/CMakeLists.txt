@@ -1,0 +1,20 @@
+cmake_minimum_required(VERSION 3.10)
+project(kv_store_apps)
+
+set(CMAKE_CXX_STANDARD 14)
+
+set (CMAKE_CXX_FLAGS "-g")
+
+# courseware
+#add_executable(kv_store_apps courseware/run_courseware.cpp utils.h utils.cpp app_config.h courseware/course.h courseware/student.h courseware/courseware.h)
+
+# shopping_cart
+#add_executable(kv_store_apps shopping_cart/run_shopping_cart.cpp utils.h utils.cpp app_config.h shopping_cart/shopping_cart.h shopping_cart/item.h shopping_cart/user.h)
+
+# twitter
+#add_executable(kv_store_apps twitter/run_twitter.cpp utils.h utils.cpp app_config.h twitter/user.h twitter/twitter.h twitter/tweet.h)
+
+# treiber_stack
+add_executable(kv_store_apps treiber_stack/run_stack.cpp utils.h utils.cpp app_config.h treiber_stack/treiber_stack.h)
+
+target_link_libraries(kv_store_apps mock_kv_store)
