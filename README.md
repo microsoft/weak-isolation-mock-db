@@ -6,21 +6,18 @@ An in-memory mock storage system for systematic testing of storage-backed applic
 
 ## Dependencies
 
-1. Cpprestsdk (https://github.com/microsoft/cpprestsdk)
+Cpprestsdk (https://github.com/microsoft/cpprestsdk)
 
-   - ```bash
-     sudo apt-get install libcpprest-dev
-     ```
+- ```bash
+  sudo apt-get install libcpprest-dev
+  ```
 
 
 
 ## Build
 
 ```bash
-mkdir build-files
-cd build-files
-cmake ../
-cmake --build ./ --target kv_store_apps
+bash build.sh
 ```
 
 
