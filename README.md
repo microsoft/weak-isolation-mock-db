@@ -8,9 +8,9 @@ An in-memory mock storage system for systematic testing of storage-backed applic
 
 Cpprestsdk (https://github.com/microsoft/cpprestsdk)
 
-- ```bash
-  sudo apt-get install libcpprest-dev
-  ```
+```bash
+sudo apt-get install libcpprest-dev
+```
 
 
 

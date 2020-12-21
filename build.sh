@@ -3,7 +3,7 @@ if ! dpkg-query -W -f='${Status}' libcpprest-dev  | grep "ok installed";
 then
     echo "cpprestsdk not found...installing..."
     # install cpprestsdk (Ubuntu)
-    sudo apt-get install libcpprest-dev
+    sudo apt-get install libcpprest-dev -y
 fi
 
 mkdir -p build-files
