@@ -13,4 +13,4 @@ cd build-files/
 cmake ../
 
 # Build applications
-cmake --build ./ --target kv_store_apps
+cmake --build ./

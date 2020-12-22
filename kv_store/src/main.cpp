@@ -2,54 +2,40 @@
 // Copyright (c) Microsoft Corporation.
 // Licensed under the MIT License.
 //
+// Demo of how to use the kv store API
 
-#include "../include/http_server.h"
+#include "../include/kv_store.h"
+#include "../include/read_response_selector.h"
 
-#include <iostream>
-#include <cpprest/http_listener.h>
+#include <string>
 
-
-/*
- * Initializes the HTTP server on the given address.
- */
-std::unique_ptr<mockdb::http_server<std::string, web::json::value>> init_server(const utility::string_t& address) {
-    web::uri_builder uri(address);
-    utility::string_t addr = uri.to_uri().to_string();
-    std::unique_ptr<mockdb::http_server<std::string, web::json::value>> server = std::unique_ptr<mockdb::http_server<std::string, web::json::value>>(
-                                                    new mockdb::http_server<std::string, web::json::value>(addr));
-    server->open().wait();
-    std::cout << "[MOCKDB::kvstore] Started HTTP server at: " <<   addr << std::endl;
-    return std::move(server);
-}
-
-/*
- * Shut down the server.
- */
-void close_server(std::unique_ptr<mockdb::http_server<std::string, web::json::value>> &server) {
-    if (server != nullptr)
-        server->close().wait();
-}
-
-/*
- * Starts HTTP server.
- * Arguments:
- * Port number
- * Log file path
- */
 int main(int argc, char* argv[]) {
-    utility::string_t port = U(argv[1]);
-    utility::string_t address = U("http://127.0.0.1:");
-    address.append(port);
-    std::unique_ptr<mockdb::http_server<std::string, web::json::value>> server = init_server(address);
+    mockdb::kv_store<std::string, int> *store;
+    mockdb::read_response_selector<std::string, int> *get_next_tx;
 
-    while (true) {
-        std::cout << "Type exit to stop" << std::endl;
-        sleep(10);
-        std::string line;
-        std::getline(std::cin, line);
-        if (line.compare("exit") == 0) {
-            close_server(server);
-            return 0;
-        }
-    }
+    // Initialize kv store and read response selector
+    get_next_tx = new mockdb::causal_read_response_selector<std::string, int>();
+    store = new mockdb::kv_store<std::string, int>(get_next_tx);
+    get_next_tx->init_consistency_checker(store);
+
+    // Put key-value pair in store
+    store->put("a", 1);
+    store->put("b", 2, 1);
+    store->put("c", 3, 2);
+    store->put("b", 4, 2);
+
+    // Read from store
+    std::cout << store->get("b", 1) << std::endl;
+    std::cout << store->get("b", 2) << std::endl;
+    std::cout << store->get("c", 1) << std::endl;
+    // Output could be:
+    // 2 4 3 or 4 4 3
+
+    // Free memory
+    delete store;
+    delete get_next_tx;
+
+    return 0;
 }
+
+

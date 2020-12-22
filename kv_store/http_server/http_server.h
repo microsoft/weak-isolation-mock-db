@@ -2,13 +2,13 @@
 // Copyright (c) Microsoft Corporation.
 // Licensed under the MIT License.
 //
-// Simple API for HTTP server
+// Simple API for HTTP server - compatible with DAPR
 
 #ifndef MOCK_KEY_VALUE_STORE_HTTP_SERVER_H
 #define MOCK_KEY_VALUE_STORE_HTTP_SERVER_H
 
-#include "kv_store.h"
-#include "read_response_selector.h"
+#include "../include/kv_store.h"
+#include "../include/read_response_selector.h"
 
 #include <cpprest/http_listener.h>
 

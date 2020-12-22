@@ -6,18 +6,34 @@ An in-memory mock storage system for systematic testing of storage-backed applic
 
 ## Dependencies
 
+(Optional) **For running WeakIsolationMockDB as HTTP server**
+
 Cpprestsdk (https://github.com/microsoft/cpprestsdk)
 
-```bash
-sudo apt-get install libcpprest-dev
+With [vcpkg](https://github.com/Microsoft/vcpkg) on Windows
+
+```powershell
+PS> vcpkg install cpprestsdk cpprestsdk:x64-windows
 ```
 
+With [apt-get](https://launchpad.net/ubuntu/+source/casablanca/2.8.0-2build2) on Debian/Ubuntu
 
+```bash
+$ sudo apt-get install libcpprest-dev
+```
 
 ## Build
 
+On Linux
+
 ```bash
-bash build.sh
+bash scripts/build.sh
+```
+
+On Windows
+
+```powershell
+scripts\build.bat
 ```
 
 

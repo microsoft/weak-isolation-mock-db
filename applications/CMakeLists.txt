@@ -3,7 +3,7 @@ project(kv_store_apps)
 
 set(CMAKE_CXX_STANDARD 14)
 
-set (CMAKE_CXX_FLAGS "-g")
+set(CMAKE_CXX_FLAGS -pthread)
 
 # courseware
 #add_executable(kv_store_apps courseware/run_courseware.cpp utils.h utils.cpp app_config.h courseware/course.h courseware/student.h courseware/courseware.h)
