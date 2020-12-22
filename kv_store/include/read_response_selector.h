@@ -16,6 +16,7 @@
 #include <unordered_map>
 #include <algorithm>
 #include <random>
+#include <numeric>
 
 namespace mockdb {
     template<typename K, typename V>
