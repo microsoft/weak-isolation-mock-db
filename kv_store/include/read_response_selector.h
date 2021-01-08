@@ -33,8 +33,8 @@ namespace mockdb {
         virtual void init_consistency_checker(const kv_store <K, V> *store) = 0;
 
         // By default it picks one transaction response at random
-        virtual GET_response<K, V> *select_read_response(transaction<K, V> *tx,
-                                                         GET_operation<K, V> *op,
+        virtual GET_response<K, V> *select_read_response(transaction<K, V> *,
+                                                         GET_operation<K, V> *,
                                                          std::vector<GET_response<K, V> *> candidates) {
             int idx = std::rand() % candidates.size();
             return candidates[idx];

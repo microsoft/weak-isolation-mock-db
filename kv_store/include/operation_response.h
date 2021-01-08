@@ -10,6 +10,10 @@ namespace mockdb {
     template <typename K, typename V>
     class operation_response {
     public:
+        virtual ~operation_response() {
+            // Pass
+        }
+
         virtual bool is_successful() {
             return success;
         }
@@ -34,8 +38,8 @@ namespace mockdb {
         long get_written_by_tx_id() const {
             return written_by_tx_id;
         }
-        void set_written_by_tx_id(long value) {
-            written_by_tx_id = value;
+        void set_written_by_tx_id(long tx_id) {
+            written_by_tx_id = tx_id;
         }
     private:
         const K key;

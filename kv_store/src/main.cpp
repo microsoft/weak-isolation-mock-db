@@ -9,7 +9,7 @@
 
 #include <string>
 
-int main(int argc, char* argv[]) {
+int main() {
     mockdb::kv_store<std::string, int> *store;
     mockdb::read_response_selector<std::string, int> *get_next_tx;
 

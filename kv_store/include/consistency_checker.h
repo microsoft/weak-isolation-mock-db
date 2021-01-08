@@ -24,6 +24,10 @@ namespace mockdb {
             this->store = store;
         }
 
+        virtual ~consistency_checker() {
+            // Pass
+        }
+
         virtual bool is_consistent(const transaction<K, V> *new_tx) = 0;
     protected:
         const kv_store<K, V> *store;
@@ -63,7 +67,7 @@ namespace mockdb {
                 return true;
 
             // Check if all dependent_txs are committed before tx_id
-            int committed_count = 0;
+            size_t committed_count = 0;
             for (auto tx : this->store->get_history()) {
                 if (dependent_txs.find(tx->get_tx_id()) != dependent_txs.end())
                     committed_count++;

@@ -13,9 +13,13 @@ namespace mockdb {
         virtual K get_key() const {
             return this->key;
         }
+
+        virtual ~operation_param() {
+            // Pass
+        }
+
     protected:
         K key;
-
     };
 
     template <typename K, typename V>
