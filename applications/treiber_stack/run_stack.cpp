@@ -59,7 +59,7 @@ void random_fill(long seed) {
 
 void do_operations(treiber_stack<int> *stack, int t_id) {
     std::vector<int> pop_values;
-    for (int i = 1; i <= operations[t_id - 1].size(); i++) {
+    for (size_t i = 1; i <= operations[t_id - 1].size(); i++) {
         if (operations[t_id - 1][i - 1]) {
             stack->push(t_id * 10 + i, t_id);
         }
@@ -68,7 +68,7 @@ void do_operations(treiber_stack<int> *stack, int t_id) {
         }
     }
     if (!config->random_test) {
-        for (int i = 0; i < pop_values.size(); i++)
+        for (size_t i = 0; i < pop_values.size(); i++)
             results[(t_id - 1) * 2 + i] = pop_values[i];
     }
 }
@@ -84,6 +84,8 @@ void run_iteration() {
     else if (config->consistency_level == consistency::k_causal)
         get_next_tx = new mockdb::k_causal_read_response_selector<long, std::pair<int, long>>(2,
                                                                                               operations.size() * operations[0].size()/2);
+    else
+        get_next_tx = new mockdb::causal_read_response_selector<long, std::pair<int, long>>();
 
     mockdb::kv_store<long, std::pair<int, long>> *store = new mockdb::kv_store<long, std::pair<int, long>>(get_next_tx);
     get_next_tx->init_consistency_checker(store);

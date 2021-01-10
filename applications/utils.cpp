@@ -8,7 +8,7 @@
 #include <iostream>
 #include <cstring>
 
-app_config *parse_command_line(int argc, char **argv) {
+app_config *parse_command_line(int , char **argv) {
     app_config *config      = new app_config();
     config->log_file_name   = argv[1];
     config->iterations      = atoi(argv[2]);
