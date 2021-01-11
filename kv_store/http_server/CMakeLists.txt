@@ -2,7 +2,13 @@ cmake_minimum_required(VERSION 3.10)
 project(mock_kv_store_server)
 
 set(CMAKE_CXX_STANDARD 14)
-set(cpprestsdk_DIR /usr/lib/${CMAKE_LIBRARY_ARCHITECTURE}/cmake/)
+
+if(MSVC)
+    set(cpprestsdk_DIR /a/1/b/vcpkg/packages/cpprestsdk_x64-windows/share/cpprestsdk/)
+else()
+    set(cpprestsdk_DIR /usr/lib/${CMAKE_LIBRARY_ARCHITECTURE}/cmake/)
+endif()
+
 find_package(cpprestsdk REQUIRED)
 
 add_executable(mock_kv_store_server start_server.cpp)
