@@ -6,7 +6,10 @@ set(CMAKE_CXX_STANDARD 14)
 set(CMAKE_CXX_FLAGS -pthread)
 
 if(MSVC)
-    set(cpprestsdk_DIR /a/1/b/vcpkg/packages/cpprestsdk_x64-windows/share/cpprestsdk/)
+    set(cpprestsdk_DIR D:/a/1/b/vcpkg/packages/cpprestsdk_x86-windows/share/cpprestsdk/)
+    set(ZLIB_LIBRARY D:/a/1/b/vcpkg/packages/zlib_x86-windows/bin/)
+    set(ZLIB_INCLUDE_DIR D:/a/1/b/vcpkg/packages/zlib_x86-windows/include/)
+    set(unofficial-brotli_DIR D:/a/1/b/vcpkg/packages/brotli_x86-windows/share/unofficial-brotli/)
 else()
     set(cpprestsdk_DIR /usr/lib/${CMAKE_LIBRARY_ARCHITECTURE}/cmake/)
 endif()
@@ -15,7 +18,7 @@ endif()
 find_package(cpprestsdk REQUIRED)
 
 # courseware
-add_executable(kv_store_apps courseware/run_courseware.cpp utils.h utils.cpp app_config.h courseware/course.h courseware/student.h courseware/courseware.h)
+#add_executable(kv_store_apps courseware/run_courseware.cpp utils.h utils.cpp app_config.h courseware/course.h courseware/student.h courseware/courseware.h)
 
 # shopping_cart
 #add_executable(kv_store_apps shopping_cart/run_shopping_cart.cpp utils.h utils.cpp app_config.h shopping_cart/shopping_cart.h shopping_cart/item.h shopping_cart/user.h)
@@ -24,7 +27,7 @@ add_executable(kv_store_apps courseware/run_courseware.cpp utils.h utils.cpp app
 #add_executable(kv_store_apps twitter/run_twitter.cpp utils.h utils.cpp app_config.h twitter/user.h twitter/twitter.h twitter/tweet.h)
 
 # treiber_stack
-#add_executable(kv_store_apps treiber_stack/run_stack.cpp utils.h utils.cpp app_config.h treiber_stack/treiber_stack.h)
+add_executable(kv_store_apps treiber_stack/run_stack.cpp utils.h utils.cpp app_config.h treiber_stack/treiber_stack.h)
 
 
 target_link_libraries(kv_store_apps mock_kv_store cpprestsdk::cpprest)

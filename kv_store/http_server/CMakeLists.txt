@@ -4,7 +4,11 @@ project(mock_kv_store_server)
 set(CMAKE_CXX_STANDARD 14)
 
 if(MSVC)
-    set(cpprestsdk_DIR /a/1/b/vcpkg/packages/cpprestsdk_x64-windows/share/cpprestsdk/)
+    set(cpprestsdk_DIR D:/a/1/b/vcpkg/packages/cpprestsdk_x86-windows/share/cpprestsdk/)
+    set(ZLIB_LIBRARY D:/a/1/b/vcpkg/packages/zlib_x86-windows/bin/)
+    set(ZLIB_INCLUDE_DIR D:/a/1/b/vcpkg/packages/zlib_x86-windows/include/)
+    set(unofficial-brotli_DIR D:/a/1/b/vcpkg/packages/brotli_x86-windows/share/unofficial-brotli/)
+
 else()
     set(cpprestsdk_DIR /usr/lib/${CMAKE_LIBRARY_ARCHITECTURE}/cmake/)
 endif()
