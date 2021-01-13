@@ -6,6 +6,8 @@
 #ifndef MOCK_KEY_VALUE_STORE_OPERATION_RESPONSE_H
 #define MOCK_KEY_VALUE_STORE_OPERATION_RESPONSE_H
 
+#include <cstddef>
+
 namespace mockdb {
     template <typename K, typename V>
     class operation_response {
@@ -35,16 +37,28 @@ namespace mockdb {
         const V get_value() const {
             return value;
         }
+
         long get_written_by_tx_id() const {
             return written_by_tx_id;
         }
+
         void set_written_by_tx_id(long tx_id) {
             written_by_tx_id = tx_id;
         }
+
+        void set_version_number(size_t v) {
+            version_number = v;
+        }
+
+        size_t get_version_number() const {
+            return version_number;
+        }
+
     private:
         const K key;
         const V value;
         long written_by_tx_id;
+        size_t version_number;
     };
 
     template <typename K, typename V>

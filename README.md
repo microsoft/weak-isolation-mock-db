@@ -1,14 +1,18 @@
 # Weak Isolation Mock DB
 
-An in-memory mock storage system for systematic testing of storage-backed applications under various isolation levels. WeakIsolationMockDB generates weaker behaviors - subject to the chosen isolation level, which occur rarely in real-world databases. It allows application developers to easily test their applications under various scenarios. WeakIsolationMockDB currently supports key-value interface with multiple isolation levels.
+An in-memory mock storage system for systematic testing of storage-backed applications under various isolation levels. WeakIsolationMockDB generates weaker behaviors - subject to the chosen isolation level, which occur rarely in real-world databases. It allows application developers to easily test their applications under various corner cases. WeakIsolationMockDB currently supports key-value interface with multiple isolation levels.
 
 
 
 ## Dependencies
 
-(Optional) **For running WeakIsolationMockDB as HTTP server**
+### Cpprestsdk
 
-Cpprestsdk (https://github.com/microsoft/cpprestsdk)
+https://github.com/microsoft/cpprestsdk
+
+The core library doesn't require this dependency, however applications and HTTP-server modules require cpprestsdk.
+
+**How to install**
 
 With [vcpkg](https://github.com/Microsoft/vcpkg) on Windows
 
@@ -21,6 +25,8 @@ With [apt-get](https://launchpad.net/ubuntu/+source/casablanca/2.8.0-2build2) on
 ```bash
 $ sudo apt-get install libcpprest-dev
 ```
+
+
 
 ## Build
 

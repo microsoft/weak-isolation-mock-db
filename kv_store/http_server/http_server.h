@@ -34,6 +34,8 @@ namespace mockdb {
         web::http::experimental::listener::http_listener m_listener;
         kv_store<K, V> *store;
         read_response_selector<K, V> *get_next_tx;
+        std::mutex mtx;     // Required for concurrent PUT
+                            // operations which might use ETag
 
         long get_session_id (web::http::http_headers headers);
     };
@@ -95,10 +97,12 @@ void mockdb::http_server<K, V>::handle_get(web::http::http_request message) {
         return;
     }
 
-    V value;
+    std::pair<V, size_t> value_version;
+    web::http::http_response http_response;
 
     try {
-        value = store->get(paths[3], session_id);
+        value_version = store->get_with_version(paths[3], session_id);
+        http_response.headers().add("Etag", value_version.second);
     } catch (key_not_found_exception &e) {
         message.reply(web::http::status_codes::NotFound);
         return;
@@ -107,8 +111,9 @@ void mockdb::http_server<K, V>::handle_get(web::http::http_request message) {
         message.reply(web::http::status_codes::OK, response);
         return;
     }
-    response = web::json::value(value);
-    message.reply(web::http::status_codes::OK, response);
+    http_response.set_status_code(web::http::status_codes::OK);
+    http_response.set_body(web::json::value(value_version.first));
+    message.reply(http_response);
 }
 
 /*
@@ -117,6 +122,7 @@ void mockdb::http_server<K, V>::handle_get(web::http::http_request message) {
  */
 template <typename K, typename V>
 void mockdb::http_server<K, V>::handle_post(web::http::http_request message) {
+    std::lock_guard<std::mutex> lck (mtx);
 #ifdef MOCKDB_DEBUG_LOG
     std::cout << "[MOCKDB::kvstore] PUT Request received from "
                 << message.remote_address() << std::endl;
@@ -130,8 +136,30 @@ void mockdb::http_server<K, V>::handle_post(web::http::http_request message) {
     web::json::value payload = message.extract_json().get();
     K key = payload.at(U("key")).as_string();
     V value = payload.at(U("value"));
-    store->put(key, value, session_id);
     web::json::value response;
+
+    if (payload.has_field(U("etag"))) {
+        std::string etag = payload.at(U("etag")).as_string();
+        // Check if etag matches the latest version
+        size_t version = 0;
+        try {
+            version = store->get_with_version(key, session_id).second;
+        } catch (std::exception &e) {
+            // PASS
+        }
+
+        if (std::to_string(version) != etag) {
+#ifdef MOCKDB_DEBUG_LOG
+            std::cout << "[MOCKDB::kvstore] [error] ETag mismatch" << std::endl;
+#endif // MOCKDB_DEBUG_LOG
+            response["success"] = web::json::value("false");
+            response["description"] = web::json::value("ETag mismatch");
+            message.reply(web::http::status_codes::BadRequest, response);
+            return;
+        }
+    }
+
+    store->put(key, value, session_id);
     response["success"] = web::json::value("true");
     message.reply(web::http::status_codes::OK, response);
 }
