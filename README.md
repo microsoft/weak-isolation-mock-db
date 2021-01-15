@@ -67,6 +67,16 @@ Example commands:
 
 By default it runs the stack application, to change application modify applications/CmakeLists.txt and build again.
 
+## Team
+
+This work came out of joint research done by teams at Microsoft Research, India and IRIF, France. The team members include (in alphabetical order):
+
+* Ranadeep Biswas
+* Constantin Enea
+* Diptanshu Kakwani
+* Akash Lal
+* Jyothi Vedurada
+
 
 
 ## Code of Conduct
