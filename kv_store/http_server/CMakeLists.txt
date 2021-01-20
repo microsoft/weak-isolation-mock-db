@@ -4,9 +4,7 @@ project(mock_kv_store_server)
 set(CMAKE_CXX_STANDARD 14)
 
 # Update local path to cpprestsdk
-if(MSVC)
-    set(cpprestsdk_DIR D:/a/1/b/vcpkg/packages/cpprestsdk_x86-windows/share/cpprestsdk/)
-else()
+if(NOT MSVC)
     set(cpprestsdk_DIR /usr/lib/${CMAKE_LIBRARY_ARCHITECTURE}/cmake/)
 endif()
 

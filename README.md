@@ -29,17 +29,19 @@ $ sudo apt-get install libcpprest-dev
 
 
 ## Build
+From the root directory run the build script
 
-On Linux
+On Linux 
 
 ```bash
 bash scripts/build.sh
 ```
+Linux Note: cpprestdir default path set in kv_store/http_server/CMakeLists.txt, change if different
 
-On Windows
+On Windows (provide the path to vcpkg.cmake (use / and not \))
 
 ```powershell
-scripts\build.bat
+scripts\build.bat /path/to/vcpkg/scripts/buildsystems/vcpkg.cmake
 ```
 
 
