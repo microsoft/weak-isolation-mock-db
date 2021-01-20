@@ -36,12 +36,12 @@ On Linux
 ```bash
 bash scripts/build.sh
 ```
-Linux Note: cpprestdir default path set in kv_store/http_server/CMakeLists.txt, change if different
+Linux Note: cpprestdir default path set in kv_store/http_server/CMakeLists.txt, change if cpprestsdk is installed in a different directory.
 
-On Windows (provide the path to vcpkg.cmake (use / and not \))
+On Windows (provide the path to vcpkg.cmake as argument)
 
 ```powershell
-scripts\build.bat /path/to/vcpkg/scripts/buildsystems/vcpkg.cmake
+scripts\build.bat \path\to\vcpkg\scripts\buildsystems\vcpkg.cmake
 ```
 
 
