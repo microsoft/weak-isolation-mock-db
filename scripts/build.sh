@@ -1,4 +1,5 @@
-mkdir -p build-files
+rm -rf build-files
+mkdir build-files
 cd build-files/
 
 # Build weak-isolation-mock-db
