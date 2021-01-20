@@ -120,7 +120,7 @@ void shopping_cart::remove_item(item i, long session_id) {
         return;
     }
 
-    web::json::array items = cart["items"].as_array();
+    web::json::array items = cart[L"items"].as_array();
     std::vector<web::json::value> new_items;
     for (web::json::array::iterator it = items.begin(); it != items.end(); it++) {
         if (*it != web::json::value(i.id)) {
@@ -130,8 +130,8 @@ void shopping_cart::remove_item(item i, long session_id) {
             _change_quantity(i.id, 0, session_id);
         }
     }
-    cart["items"] = web::json::value::array(new_items);
-    cart["count"] = web::json::value(new_items.size());
+    cart[L"items"] = web::json::value::array(new_items);
+    cart[L"count"] = web::json::value(new_items.size());
     this->store->put("cart:" + user, cart, session_id);
 }
 
@@ -140,7 +140,7 @@ int shopping_cart::get_quantity(item i, long session_id) {
 }
 
 item shopping_cart::get_item(int item_id, long session_id) {
-    std::string name = this->store->get("item:" + std::to_string(item_id) + ":name", session_id).as_string();
+    std::string name = utility::conversions::to_utf8string(this->store->get("item:" + std::to_string(item_id) + ":name", session_id).as_string());
     double price = this->store->get("item:" + std::to_string(item_id) + ":price", session_id).as_double();
     item i(name, item_id, price);
     return i;
@@ -155,11 +155,11 @@ std::vector<std::pair<item, int>> shopping_cart::get_cart_list(long session_id) 
         return cart_list;
     }
 
-    web::json::array items = cart["items"].as_array();
+    web::json::array items = cart[L"items"].as_array();
     for (auto &i : items) {
         int quantity = _get_quantity(i.as_integer(), session_id);
-        std::string name = this->store->get("item:" + std::to_string(i.as_integer()) + ":name", session_id)
-                                        .as_string();
+        std::string name = utility::conversions::to_utf8string(this->store->get("item:" + std::to_string(i.as_integer()) + ":name", session_id)
+                                        .as_string());
         double price = this->store->get("item:" + std::to_string(i.as_integer()) + ":price", session_id)
                                     .as_double();
         item it(name, i.as_integer(), price);
@@ -179,7 +179,8 @@ std::vector<std::pair<item, int>> shopping_cart::get_cart_list(long session_id) 
 }
 
 double shopping_cart::get_bill(long session_id) {
-
+    // TODO
+    return 0;
 }
 
 /*
@@ -192,24 +193,24 @@ void shopping_cart::_add_item(int id, long session_id) {
         cart = this->store->get("cart:" + user, session_id);
     } catch (mockdb::key_not_found_exception &e) {
         // no cart exists, create a new one and add item
-        cart["items"] = web::json::value::array();
-        cart["items"][0] = id;
-        cart["count"] = web::json::value(1);
+        cart[L"items"] = web::json::value::array();
+        cart[L"items"][0] = id;
+        cart[L"count"] = web::json::value(1);
         this->store->put("cart:" + user, cart, session_id);
         return;
     }
 
     // Check if already present
-    web::json::array items = cart["items"].as_array();
+    web::json::array items = cart[L"items"].as_array();
     for (web::json::array::iterator it = items.begin(); it != items.end(); it++) {
         if (*it == web::json::value(id)) {
             return;
         }
     }
 
-    int item_count = cart["count"].as_integer();
-    cart["items"][item_count] = id;
-    cart["count"] = web::json::value(item_count + 1);
+    int item_count = cart[L"count"].as_integer();
+    cart[L"items"][item_count] = id;
+    cart[L"count"] = web::json::value(item_count + 1);
     this->store->put("cart:" + user, cart, session_id);
 }
 
@@ -227,7 +228,7 @@ int shopping_cart::_get_quantity(int id, long session_id) {
     try {
         val = this->store->get("cart:" + std::to_string(this->user_id) +
                                ":" + std::to_string(id) + ":quantity", session_id);
-        quantity = val["value"].as_integer();
+        quantity = val[L"value"].as_integer();
     } catch (std::exception &e) {
         // Pass
     }
@@ -236,7 +237,7 @@ int shopping_cart::_get_quantity(int id, long session_id) {
 
 void shopping_cart::_change_quantity(int id, int quantity, long session_id) {
     web::json::value val;
-    val["value"] = web::json::value(quantity);
+    val[L"value"] = web::json::value(quantity);
     this->store->put("cart:" + std::to_string(this->user_id) + ":" + std::to_string(id) +
                      ":quantity", val, session_id);
 }

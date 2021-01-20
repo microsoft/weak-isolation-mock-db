@@ -8,6 +8,7 @@
 #include "twitter.h"
 
 #include <thread>
+#include <ctime>
 
 #define NUM_SESSIONS 3
 #define NUM_OPS 3

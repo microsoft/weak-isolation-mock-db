@@ -39,12 +39,12 @@ std::vector<std::vector<int>> operations(NUM_SESSIONS);
 std::vector<item> items = {shoes, ball};
 
 void add_item_to_store(item i) {
-    store->put("item:" + std::to_string(i.id) + ":name", web::json::value(i.name));
+    store->put("item:" + std::to_string(i.id) + ":name", web::json::value(utility::conversions::to_string_t(i.name)));
     store->put("item:" + std::to_string(i.id) + ":price", web::json::value(i.price));
 }
 
 void add_user_to_store(user u) {
-    store->put("user:" + std::to_string(u.id) + ":name", web::json::value(u.name));
+    store->put("user:" + std::to_string(u.id) + ":name", web::json::value(utility::conversions::to_string_t(u.name)));
 }
 
 /*

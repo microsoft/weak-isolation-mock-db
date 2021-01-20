@@ -25,7 +25,7 @@ find_package(cpprestsdk REQUIRED)
 add_executable(kv_store_apps treiber_stack/run_stack.cpp utils.h utils.cpp app_config.h treiber_stack/treiber_stack.h)
 
 
-target_link_libraries(kv_store_apps mock_kv_store)
+target_link_libraries(kv_store_apps mock_kv_store cpprestsdk::cpprest)
 
 if(MSVC)
     target_compile_options(kv_store_apps PUBLIC /W4)
