@@ -49,17 +49,19 @@ scripts\build.bat \path\to\vcpkg\scripts\buildsystems\vcpkg.cmake
 ## Running Applications
 
 ```bash
-./applications/kv_store_apps $num_iterations $consistency_level
+./build-files/applications/app_name $num_iterations $consistency_level $debug
 ```
 
-consistency_level=causal or linear
+consistency_level = causal or linear
+
+debug parameter is optional
 
 Example commands:
 
 ```bash
-./build-files/applications/stack_app 100 causal
+./build-files/applications/stack_app 1000 causal
 ./build-files/applications/courseware_app 100000 linear
-./build-files/applications/twitter_app 10 causal
+./build-files/applications/twitter_app 100 causal debug
 ```
 
 ## Team

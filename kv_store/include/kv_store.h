@@ -8,7 +8,7 @@
 #ifndef MOCK_KEY_VALUE_STORE_KV_STORE_H
 #define MOCK_KEY_VALUE_STORE_KV_STORE_H
 
-#define MOCKDB_DEBUG_LOG
+//#define MOCKDB_DEBUG_LOG
 #define DEFAULT_SESSION 1
 
 #include "transaction.h"

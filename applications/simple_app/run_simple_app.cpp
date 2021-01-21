@@ -90,20 +90,17 @@ int main(int argc, char **argv) {
 
     for(int j = 0; j < config->iterations; j++) {
 
-#ifdef MOCKDB_APP_DEBUG_LOG
-        std::cout << "[MOCKDB::app] Iteration " << j << " start" << std::endl;
-#endif // MOCKDB_APP_DEBUG_LOG
+        if (config->debug)
+            std::cout << "[MOCKDB::app] Iteration " << j << " start" << std::endl;
 
-        std::cout << "Iteration " << j << " start\n";
         std::chrono::steady_clock::time_point begin = std::chrono::steady_clock::now();
         run_iteration();
         std::chrono::steady_clock::time_point end = std::chrono::steady_clock::now();
 
-#ifdef MOCKDB_APP_DEBUG_LOG
-        std::cout << "[MOCKDB::app] Iteration " << j << " end "
+        if (config->debug)
+            std::cout << "[MOCKDB::app] Iteration " << j << " end "
                      << std::chrono::duration_cast<std::chrono::microseconds>(end - begin).count()
                      << std::endl;
-#endif // MOCKDB_APP_DEBUG_LOG
 
     }
 

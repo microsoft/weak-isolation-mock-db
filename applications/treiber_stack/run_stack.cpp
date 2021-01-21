@@ -111,6 +111,7 @@ void run_iteration() {
  */
 int main(int argc, char **argv) {
     config = parse_command_line(argc, argv);
+    std::cout << "Running stack application\n";
 
     if (!config->random_test){
         // T1: PUSH PUSH PUSH
@@ -125,19 +126,15 @@ int main(int argc, char **argv) {
     for (int i = 1; i <= config->num_random_test; i++) {
 
         if (config->random_test) {
-
-#ifdef MOCKDB_APP_DEBUG_LOG
-            std::cout << "[MOCKDB::app] RANDOM " << i - 1 << " start" << std::endl;
-#endif // MOCKDB_APP_DEBUG_LOG
+            if (config->debug)
+                std::cout << "[MOCKDB::app] RANDOM " << i - 1 << " start" << std::endl;
 
             random_fill(i * 19 + 11);
         }
 
         for (int j = 0; j < config->iterations; j++) {
-
-#ifdef MOCKDB_APP_DEBUG_LOG
-            std::cout << "[MOCKDB::app] Iteration " << j << " start" << std::endl;
-#endif // MOCKDB_APP_DEBUG_LOG
+            if (config->debug)
+                std::cout << "[MOCKDB::app] Iteration " << j << " start" << std::endl;
 
             std::chrono::steady_clock::time_point begin = std::chrono::steady_clock::now();
             run_iteration();
@@ -150,23 +147,23 @@ int main(int argc, char **argv) {
             for (auto k : assert_counter)
                 ss << k << " ";
 
-#ifdef MOCKDB_APP_DEBUG_LOG
-            std::cout << "[MOCKDB::app] " << ss.str() << std::endl;
-            std::cout << "[MOCKDB::app] Iteration " << j << " end "
-                     << std::chrono::duration_cast<std::chrono::microseconds>(end - begin).count()
-                     << std::endl;
-#endif // MOCKDB_APP_DEBUG_LOG
-
+            if (config->debug) {
+                std::cout << "[MOCKDB::app] " << ss.str() << std::endl;
+                std::cout << "[MOCKDB::app] Iteration " << j << " end "
+                    << std::chrono::duration_cast<std::chrono::microseconds>(end - begin).count()
+                    << std::endl;
+            }
         }
 
-        if (config->random_test) {
-
-#ifdef MOCKDB_APP_DEBUG_LOG
+        if (config->random_test && config->debug) {
             std::cout << "[MOCKDB::app] RANDOM " << i - 1 << " end" << std::endl;
-#endif // MOCKDB_APP_DEBUG_LOG
-
         }
     }
+
+    int voilation_count = assert_counter[0];
+
+    std::cout << "Total violations found: " << voilation_count
+        << " in " << config->iterations << " iterations\n";
 
     delete config;
 

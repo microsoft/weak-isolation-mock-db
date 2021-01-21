@@ -8,12 +8,20 @@
 #include <iostream>
 #include <cstring>
 
-app_config *parse_command_line(int , char **argv) {
+app_config *parse_command_line(int argc, char **argv) {
     app_config *config      = new app_config();
     config->iterations      = atoi(argv[1]);
     char *consistency_arg   = argv[2];
     config->random_test     = false;
     config->num_random_test = 1;
+
+    if (argc > 3) {
+        char* debug_arg = argv[3];
+        if (strcmp(debug_arg, "debug") == 0) {
+            config->debug = true;
+        }
+    }
+
 
     if (strcmp(consistency_arg, "linear") == 0) {
         std::cout << "linearizability consistency\n";
