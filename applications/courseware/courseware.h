@@ -285,8 +285,11 @@ void courseware::enroll(int student_id, int course_id, long session_id) {
         // student or course doesn't exist
         return;
     }
-    if (student_details[L"registered"].as_bool() == 0 || course_details[L"status"].as_string() != utility::conversions::to_string_t("open"))
+
+    if (student_details[L"registered"].as_bool() == false ||
+        course_details[L"status"] != web::json::value(("open"))) {
         return;
+    }
 
     // Retrieve list of students enrolled for the course
     web::json::value course_enrollment;

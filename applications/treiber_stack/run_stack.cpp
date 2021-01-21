@@ -106,11 +106,8 @@ void run_iteration() {
 
 /*
  * Args:
- * log_filename
  * num of iterations
  * consistency-level: linear, causal, k-causal
- * random/fixed
- * number of random runs (use 1 for fixed)
  */
 int main(int argc, char **argv) {
     config = parse_command_line(argc, argv);

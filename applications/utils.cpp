@@ -10,20 +10,10 @@
 
 app_config *parse_command_line(int , char **argv) {
     app_config *config      = new app_config();
-    config->log_file_name   = argv[1];
-    config->iterations      = atoi(argv[2]);
-    char *consistency_arg   = argv[3];
-    char *random_arg        = argv[4];
-    config->num_random_test = atoi(argv[5]);
-
-    if (strcmp(random_arg, "random") == 0) {
-        std::cout << "random operations\n";
-        config->random_test = true;
-    }
-    else if (strcmp(random_arg, "fixed") == 0) {
-        std::cout << "fixed operations\n";
-        config->random_test = false;
-    }
+    config->iterations      = atoi(argv[1]);
+    char *consistency_arg   = argv[2];
+    config->random_test     = false;
+    config->num_random_test = 1;
 
     if (strcmp(consistency_arg, "linear") == 0) {
         std::cout << "linearizability consistency\n";

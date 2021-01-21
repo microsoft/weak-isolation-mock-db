@@ -153,7 +153,6 @@ void run_iteration() {
 
 /*
  * Args:
- * log_filename
  * num of iterations
  * consistency-level: linear, causal, k-causal
  */

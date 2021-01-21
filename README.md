@@ -49,25 +49,18 @@ scripts\build.bat \path\to\vcpkg\scripts\buildsystems\vcpkg.cmake
 ## Running Applications
 
 ```bash
-./applications/kv_store_apps $log_file $num_iterations $consistency_level $test_type $test_cases
+./applications/kv_store_apps $num_iterations $consistency_level
 ```
 
 consistency_level=causal or linear
 
-test_type=fixed or random (For fixed use test_cases=1)
-
 Example commands:
 
 ```bash
-./applications/kv_store_apps app.log 100000 causal random 50
-./applications/kv_store_apps app.log 100000 linear random 50
-./applications/kv_store_apps app.log 100000 causal fixed 1
-./applications/kv_store_apps app.log 1000 linear fixed 1
+./build-files/applications/stack_app 100 causal
+./build-files/applications/courseware_app 100000 linear
+./build-files/applications/twitter_app 10 causal
 ```
-
-
-
-By default it runs the stack application, to change application modify applications/CmakeLists.txt and build again.
 
 ## Team
 
