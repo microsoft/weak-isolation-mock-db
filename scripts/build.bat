@@ -26,7 +26,7 @@ if errorlevel 1 (
 echo Build Successful
 echo Building Applications ...
 
-cmake --build ./ --target courseware_app shopping_cart_app twitter_app stack_app > app_log.txt
+cmake --build ./ --target courseware_app shopping_cart_app twitter_app stack_app
 
 if errorlevel 1 (
     echo Applications BUILD UNSUCCESSFUL
