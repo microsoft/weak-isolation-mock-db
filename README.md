@@ -1,5 +1,7 @@
 # Weak Isolation Mock DB
 
+[![Build status](https://dev.azure.com/mscoyote/research/_apis/build/status/13)](https://dev.azure.com/mscoyote/research/_build/latest?definitionId=13)
+
 An in-memory mock storage system for systematic testing of storage-backed applications under various isolation levels. WeakIsolationMockDB generates weaker behaviors - subject to the chosen isolation level, which occur rarely in real-world databases. It allows application developers to easily test their applications under various corner cases. WeakIsolationMockDB currently supports key-value interface with multiple isolation levels.
 
 
