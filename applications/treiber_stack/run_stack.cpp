@@ -160,9 +160,9 @@ int main(int argc, char **argv) {
         }
     }
 
-    int voilation_count = assert_counter[0];
+    int violation_count = assert_counter[0];
 
-    std::cout << "Total violations found: " << voilation_count
+    std::cout << "Total violations found: " << violation_count
         << " in " << config->iterations << " iterations\n";
 
     delete config;

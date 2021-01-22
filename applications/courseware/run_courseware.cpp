@@ -266,10 +266,10 @@ int main(int argc, char **argv) {
         }
     }
 
-    int voilation_count = 0;
-    for (auto e : assert_counter)   voilation_count += e;
+    int violation_count = 0;
+    for (auto e : assert_counter)   violation_count += e;
 
-    std::cout << "Total violations found: " << voilation_count
+    std::cout << "Total violations found: " << violation_count
         << " in " << config->iterations << " iterations\n";
     delete config;
     return 0;

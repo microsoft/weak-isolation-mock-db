@@ -36,7 +36,7 @@ On Linux
 ```bash
 bash scripts/build.sh
 ```
-Linux Note: cpprestdir default path set in kv_store/http_server/CMakeLists.txt, change if cpprestsdk is installed in a different directory.
+Linux Note: cpprestdir default path set in CMakeLists.txt (http_server and applications), change if cpprestsdk is installed in a different directory.
 
 On Windows (provide the path to vcpkg.cmake as argument)
 
@@ -48,21 +48,43 @@ scripts\build.bat \path\to\vcpkg\scripts\buildsystems\vcpkg.cmake
 
 ## Running Applications
 
+Set the current directory to the location of executables
+
+On Linux
+
 ```bash
-./build-files/applications/app_name $num_iterations $consistency_level $debug
+cd build-files/applications/
+```
+
+On Windows
+
+```powershell
+cd build-files\applications\Debug\
+```
+
+
+
+Now the applications can be run using the following syntax:
+
+```bash
+./app_name $num_iterations $consistency_level $debug
 ```
 
 consistency_level = causal or linear
 
 debug parameter is optional
 
+
+
 Example commands:
 
 ```bash
-./build-files/applications/stack_app 1000 causal
-./build-files/applications/courseware_app 100000 linear
-./build-files/applications/twitter_app 100 causal debug
+./stack_app 1000 causal
+./courseware_app 100000 linear
+./twitter_app 100 causal debug
 ```
+
+Each application run will output the number of times it found violations in the given number of iterations.
 
 ## Team
 
