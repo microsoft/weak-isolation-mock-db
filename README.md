@@ -86,7 +86,7 @@ Example commands:
 
 Each application run will output the number of times it found violations in the given number of iterations.
 
-
+Refer to applications/readme for description of all application and their violations. 
 
 ## Team
 
