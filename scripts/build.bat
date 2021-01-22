@@ -15,7 +15,7 @@ cd build-files
 
 echo Building weak-isolation-mock-db ...
 
-cmake -DVCPKG_TARGET_TRIPLET=x64-windows -DCMAKE_TOOLCHAIN_FILE=%1 ../ > log.txt
+cmake -DCMAKE_TOOLCHAIN_FILE=%1 ../ > log.txt
 
 if errorlevel 1 (
     echo BUILD UNSUCCESSFUL
