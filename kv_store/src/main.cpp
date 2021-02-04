@@ -5,6 +5,7 @@
 // Demo of how to use the kv store API
 
 #include "../include/kv_store.h"
+#include "../include/sql_store.h"
 #include "../include/read_response_selector.h"
 
 #include <string>
@@ -30,6 +31,15 @@ int main() {
     std::cout << store->get("c", 1) << std::endl;
     // Output could be:
     // 2 4 3 or 4 4 3
+
+    mockdb::sql_store* sql_store;
+    mockdb::read_response_selector<char*, char*>* sql_get_next_tx;
+
+    // Initialize kv store and read response selector
+    sql_get_next_tx = new mockdb::causal_read_response_selector<char*, char*>();
+    sql_store = new mockdb::sql_store(sql_get_next_tx);
+    sql_get_next_tx->init_consistency_checker(sql_store);
+    sql_store->execute_query("select * from people;");
 
     // Free memory
     delete store;

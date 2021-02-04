@@ -1,0 +1,3 @@
+[submodule "kv_store/sql_parser"]
+	path = kv_store/sql_parser
+	url = https://github.com/hyrise/sql-parser.git

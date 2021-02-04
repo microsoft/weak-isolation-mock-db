@@ -5,7 +5,12 @@ set(CMAKE_CXX_STANDARD 14)
 
 set(CMAKE_CXX_FLAGS -pthread)
 
-add_library(mock_kv_store src/main.cpp include/kv_store.h include/transaction.h include/key_not_found_exception.h include/operation_response.h include/operation_param.h include/consistency_checker.h include/read_response_selector.h include/consistency_exception.h include/operation.h)
+include_directories(sql_parser)
+
+add_library(mock_kv_store src/main.cpp include/kv_store.h include/sql_store.h include/transaction.h include/key_not_found_exception.h include/operation_response.h include/operation_param.h include/consistency_checker.h include/read_response_selector.h include/consistency_exception.h include/operation.h include/query_parse_exception.h)
+
+# Link sql_parser which currently only supports linux shared library
+#target_link_libraries(mock_kv_store PRIVATE libsqlparser.so)
 
 add_subdirectory(http_server)
 

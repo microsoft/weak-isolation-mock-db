@@ -76,7 +76,7 @@ namespace mockdb {
                 index = dist(gen);
 
                 // Swap with the last element to not pick the same element again
-                swap(candidates[index], candidates[limit - 1]);
+                std::swap(candidates[index], candidates[limit - 1]);
                 GET_response<K, V> *candidate = candidates[limit - 1];
                 limit--;
 

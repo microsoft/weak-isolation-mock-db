@@ -13,6 +13,7 @@
 
 #include "transaction.h"
 #include "key_not_found_exception.h"
+#include "query_parse_exception.h"
 #include "consistency_exception.h"
 
 #include <list>
@@ -31,13 +32,15 @@ namespace mockdb {
     class kv_store {
     public:
         kv_store(read_response_selector<K, V> *read_selector);
+
+        // KV interface
         V get(const K &key, long session_id = DEFAULT_SESSION);
         std::pair<V, size_t> get_with_version(const K &key, long session_id = DEFAULT_SESSION);
         int put(const K &key, const V &value, long session_id = DEFAULT_SESSION);
         V remove(const K &key, long session_id = DEFAULT_SESSION);
 
         size_t get_size() const;
-        ~kv_store();
+        virtual ~kv_store();
 
         const read_response_selector<K, V> *get_gen_next_tx() const;
         void set_gen_next_tx(read_response_selector<K, V> *gen_next_tx);
@@ -262,5 +265,6 @@ const std::list<mockdb::transaction<K, V>*> mockdb::kv_store<K, V>::get_session_
         return std::list<transaction<K, V>*>();
     return this->session_order.at(session_id);
 }
+
 
 #endif //MOCK_KEY_VALUE_STORE_KV_STORE_H
